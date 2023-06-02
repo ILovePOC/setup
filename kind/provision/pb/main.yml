@@ -8,8 +8,7 @@
     kind_version: "0.11.1"
     helm_version: "3.6.3"    
     kubectl_version: "1.22.0" 
-    kind_cluster_name: "kind" 
-    kind_cluster_name: "kind"        
+    kind_cluster_name: "kind"     
 
   tasks:
     - name: Update apt cache
