@@ -1,0 +1,12 @@
+---
+- name: Check if desktop packages are installed
+  shell: dpkg -s "{{ desktop_packages }}" | grep "Status: install ok installed"
+  register: desktop_packages_check
+  failed_when: false
+  changed_when: false
+
+- name: Install desktop packages
+  apt:
+    name: "{{ desktop_packages }}"
+    state: present
+  when: desktop_packages_check.stdout_lines | length == 0

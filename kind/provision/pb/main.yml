@@ -1,0 +1,46 @@
+---
+- name: Provision VM
+  hosts: all
+  become: true
+
+  vars:
+
+    kind_version: "0.11.1"
+    helm_version: "3.6.3"    
+    kubectl_version: "1.22.0" 
+    kind_cluster_name: "kind" 
+    kind_cluster_name: "kind"        
+
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Install basic packages
+      include_tasks: basic_packages.yml
+
+    - name: Install docker
+      include_tasks: install_docker.yml      
+
+    - name: Install kind
+      include_tasks: install_kind.yml
+      vars:
+        version: "{{ kind_version }}"
+
+    - name: Install kubectl
+      include_tasks: install_kubectl.yml
+      vars:
+        version: "{{ kubectl_version }}"
+
+    - name: Install Helm
+      include_tasks: install_helm.yml
+      vars:
+        version: "{{ helm_version }}"      
+
+    - name: Create Cluster
+      include_tasks: create_cluster.yml  
+      vars:
+        cluster_name: "{{ kind_cluster_name }}"           
+
+    # - name: Install desktop packages
+    #   include_tasks: desktop_packages.yml        
