@@ -2,6 +2,8 @@
 - name: Provision VM
   hosts: all
   become: true
+  vars:
+    ansible_host: "192.168.33.10"  
 
   vars:
 
